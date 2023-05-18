@@ -1,9 +1,13 @@
 function solution(d, budget) {
-    const answerList=[];
-    const arr = d.sort((a,b)=>a-b).map(x=>{
-        budget -= x;
-        answerList.push(budget);
-    })
-    const filterd = answerList.filter(x=> x >= 0);
-    return filterd.length;
+    let count = 0;
+    const arr = d.sort((a,b)=>a-b);
+    for(let i of arr){
+        if(budget>= i){
+            budget -= i;
+            count++
+        }else {
+            break;
+        }
+    }
+    return count;
 }
