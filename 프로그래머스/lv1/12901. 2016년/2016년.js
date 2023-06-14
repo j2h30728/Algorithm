@@ -3,6 +3,5 @@ function solution(a, b) {
     const day = ["THU","FRI","SAT","SUN","MON","TUE","WED"];
     const sumDate = date.reduce((acc,curr,idx)=>
                                 idx < a-1 ? acc+curr : acc ,b) ;
-    console.log(sumDate )
     return day[sumDate % day.length ];
 }
