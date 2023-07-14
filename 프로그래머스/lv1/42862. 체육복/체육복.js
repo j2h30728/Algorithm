@@ -1,17 +1,13 @@
 function solution(n, lost, reserve) {
     const reserveObj = {};
-    makeObj(reserve,reserveObj);
-    let count = n;
-    lost.sort();
-    const filted =lost.filter(x=>{
-        if(reserveObj[x]){
-            countDown(x, reserveObj);
-            return false;
-        }
-        return true;
-    })
+    const fileteredReserve = reserve.filter(x=> !lost.includes(x))
+    const filteredLost = lost.filter(x=>!reserve.includes(x))
     
-    filted.forEach(x=>{
+    makeObj(fileteredReserve,reserveObj);
+    let count = n;
+    filteredLost.sort((a,b)=>a-b);
+    
+    filteredLost.forEach(x=>{
         if(reserveObj[x-1]){
             countDown(x-1, reserveObj)
         } else if(reserveObj[x+1]){
