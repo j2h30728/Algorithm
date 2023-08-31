@@ -1,16 +1,16 @@
 function solution(balls, share) {
-    if(balls-share === 0 ) return 1
     let a = 1
     let b = 1
     let c = 1
-    for(let i = balls; i >0; i--){
+    for(let i = 1; i <= balls; i++){
         a *= i
     }
-    for(let i = share; i >0; i--){
+    for(let i = 1; i <=share; i++){
         b *= i
     }
-    for(let i =balls-share ; i >0; i--){
+        for(let i = 1; i <=balls-share; i++){
         c *= i
     }
-    return Math.floor(a/(b*c));
+
+    return Math.round(a/(b*c));
 }
