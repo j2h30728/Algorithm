@@ -1,12 +1,13 @@
 function solution(elements) {
     const set = new Set();    
     
-    const extendsElements = elements.concat(elements)
+    const extendedElements = elements.concat(elements)
     
-    for(let i = 0; i < elements.length ; i++){
-        for(let j =i+1; j <= elements.length+i; j++ ){
-            const temp = extendsElements.slice(i,j)
-            set.add(temp.reduce((acc,curr)=> acc+curr,0))
+    for(let start = 0; start < elements.length ; start++){
+        let sum = 0;
+        for(let end =start+1; end <= elements.length+start; end++ ){
+            sum += extendedElements[end];
+            set.add(sum);
         }
     }
     return set.size
