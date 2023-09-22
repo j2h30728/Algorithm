@@ -8,7 +8,6 @@ function solution(s) {
         s = endString+startString;
     }
     return count;
-    return check(s)
 }
 
 const start = {
