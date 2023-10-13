@@ -12,9 +12,7 @@ function solution(a, b) {
   let num1 = a;
   let num2 = b;
   while (num2 !== 0) {
-    let temp = num1 % num2;
-    num1 = num2;
-    num2 = temp;
+    [num1, num2] = [num2, num1 % num2];
   }
   const LCM = (a * b) / num1;
   return [num1, LCM].join("\n");
