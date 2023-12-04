@@ -3,22 +3,22 @@ const filePath = process.platform === "linux" ? "/dev/stdin" : "./input.txt";
 const input = fs.readFileSync(filePath).toString().trim().split("\n");
 const [n, ...strings] = input;
 
-function solution(a, b) {
-  let count = 0;
-  b.forEach((string) => {
-    const arr = [];
-    for (const char of string) {
-      if (arr.includes(char) && arr.at(-1) !== char) {
-        break;
+const check = (string) => {
+  const set = new Set(string[0]);
+  for (let i = 1; i < string.length; i++) {
+    if (string[i] !== string[i - 1]) {
+      if (set.has(string[i])) {
+        return false;
       } else {
-        arr.push(char);
-      }
-      if (arr.length === string.length) {
-        count++;
+        set.add(string[i]);
       }
     }
-  });
-  return count;
+  }
+  return true;
+};
+
+function solution(a, arr) {
+  return arr.filter((x) => check(x)).length;
 }
 
 console.log(solution(n, strings));
