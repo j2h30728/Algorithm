@@ -1,23 +1,25 @@
 const fs = require("fs");
 const filePath = process.platform === "linux" ? "/dev/stdin" : "./input.txt";
-const input = fs.readFileSync(filePath).toString().trim().split("\n").slice(1);
+const input = fs.readFileSync(filePath).toString().trim().split("\n");
+const [n, ...arr] = input;
 
-function solution(input) {
-  const uniqueInput = Array.from(new Set(input));
-  for (let i = 0; i < uniqueInput.length; i++) {
-    let minIndex = i;
-    for (let j = i + 1; j < uniqueInput.length; j++) {
-      if (
-        uniqueInput[minIndex].length > uniqueInput[j].length ||
-        (uniqueInput[minIndex].length === uniqueInput[j].length && uniqueInput[minIndex] > uniqueInput[j])
-      ) {
-        minIndex = j;
+function solution(a, b) {
+  const set = new Set(b);
+  return Array.from(set)
+    .sort((a, b) => {
+      if (a.length !== b.length) {
+        return a.length - b.length;
+      } else {
+        if (a < b) {
+          return -1;
+        } else if (a > b) {
+          return 1;
+        } else {
+          return 0;
+        }
       }
-    }
-    let temp = uniqueInput[minIndex];
-    uniqueInput[minIndex] = uniqueInput[i];
-    uniqueInput[i] = temp;
-  }
-  return uniqueInput.join("\n");
+    })
+    .join("\n");
 }
-console.log(solution(input));
+
+console.log(solution(Number(n), arr));
