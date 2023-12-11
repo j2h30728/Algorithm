@@ -4,15 +4,13 @@ const input = fs.readFileSync(filePath).toString().trim().split("\n")[0];
 
 function solution(a) {
   let count = 0;
-  while (a > 0) {
-    if (a % 5 === 0) {
-      a = parseInt(a / 5);
-      count += a;
+  while (a >= 0) {
+    if (a === 0 || a % 5 === 0) {
+      count += parseInt(a / 5);
       break;
-    } else {
-      a -= 3;
-      count += 1;
     }
+    a -= 3;
+    count += 1;
   }
 
   return a >= 0 ? count : -1;
