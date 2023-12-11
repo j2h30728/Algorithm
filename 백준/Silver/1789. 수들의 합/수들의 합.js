@@ -4,16 +4,12 @@ const input = fs.readFileSync(filePath).toString().trim().split("\n")[0];
 
 function solution(a) {
   let sum = 0;
-  let number = 1;
-  while (a > sum) {
-    sum += number;
-    if (a - sum >= number + 1) {
-      number++;
-    } else {
-      break;
-    }
+  let current = 0;
+  while (a >= sum) {
+    current += 1;
+    sum += current;
   }
-  return number;
+  return current - 1;
 }
 
 console.log(solution(Number(input)));
