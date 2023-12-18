@@ -9,8 +9,7 @@ function solution(a) {
   const result = [];
   function dfs(arr, depth) {
     if (depth === a) {
-      let str = selected.slice(1).reduce((acc, cur) => acc + " " + arr[cur], arr[selected.at(0)]);
-      result.push(str);
+      result.push(selected.map((x) => arr[x]).join(" "));
       return;
     }
 
