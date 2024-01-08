@@ -21,5 +21,6 @@ var rangeSumBST = function (root, low, high) {
 
     const leftNodeSum = rangeSumBST(root.left, low, high);
     const rightNodeSum = rangeSumBST(root.right, low, high);
+    
     return currValue + leftNodeSum + rightNodeSum;
 };
