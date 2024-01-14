@@ -1,3 +1,24 @@
+# Intuition
+
+연결 리스트의 끝에서 n 번째 노드를 제거하기위해 두개의 포인터를 사용해 한 번의 순회로 해결한다.
+
+# Approach
+
+두개의 포인터 사용 : fast, slow. fast 포인터는 slow 포인터보다 n노드 앞에 위치한다.
+
+만약, fast가 null 이 되면 첫 번째 노드를 제거해야하는 것이기 때문에 head.next를 반환한다.
+
+# Complexity
+
+- Time complexity:
+  O(n) : 연결 리스트의 모든 노드를 한 번씩 순회한다.
+
+- Space complexity:
+  O(1) : 추가적인 공간 사용하지 않는다.
+
+# Code
+
+```js
 /**
  * Definition for singly-linked list.
  * function ListNode(val, next) {
@@ -31,3 +52,4 @@ var removeNthFromEnd = function (head, n) {
   slow.next = slow.next.next;
   return head;
 };
+```
