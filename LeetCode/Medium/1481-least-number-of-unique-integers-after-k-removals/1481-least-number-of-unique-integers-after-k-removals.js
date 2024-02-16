@@ -11,7 +11,6 @@ var findLeastNumOfUniqueInts = function (arr, k) {
     const newArray = Object.values(obj).sort((a, b) => a - b);
     let uniqueNumber = newArray.length;
     for (let count of newArray) {
-        console.log(count)
         if (k >= count) {
             k -= count;
             uniqueNumber--;
