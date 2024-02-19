@@ -1,0 +1,49 @@
+# Intuition
+
+실행 대기 큐에 있는 프로세스들의 우선순위를 고려하여, 특정 프로세스가 실행될 순서를 찾는다.
+실행 대기 큐에서 프로세스를 순차적으로 검토하면서, 현재 프로세스의 우선순위가 가장 높은지 확인한다.
+우선순위가 가장 높다면 실행하고, 그렇지 않다면 큐의 끝으로 다시 보낸다. 이 과정을 통해 각 프로세스가 실행되는 순서를 결정한다.
+
+# Approach
+
+1. priorities 배열에서 프로세스를 순차적으로 꺼냅니다. 이때, location 변수는 꺼내려고 하는 프로세스의 원래 위치를 나타냅니다.
+2. 꺼낸 프로세스의 우선순위가 현재 큐에 있는 프로세스 중 가장 높은지 확인합니다. 이를 위해 Math.max(...priorities)를 사용하여 현재 큐에 있는 프로세스의 최대 우선순위를 찾습니다.
+3. 만약 꺼낸 프로세스의 우선순위가 가장 높다면, 해당 프로세스를 실행합니다. 이때, location이 0이라면 이 프로세스가 우리가 찾는 프로세스이므로, 현재까지 실행한 프로세스의 수(count)를 반환합니다.
+4. 꺼낸 프로세스의 우선순위가 가장 높지 않다면, 이 프로세스를 큐의 맨 끝으로 다시 보냅니다. 동시에, 꺼낸 프로세스가 우리가 찾는 프로세스인 경우(location이 0인 경우), location을 큐의 마지막 위치로 업데이트합니다.
+5. 모든 프로세스가 실행될 때까지 이 과정을 반복합니다.
+
+# Complexity
+
+- Time complexity: O(n^2)
+  여기서 n은 대기 큐에 있는 프로세스의 수. 각 프로세스를 처리할 때 마다 Math.max() 함수를 사용하여 전체 배열을 순회하므로, 최악의 경우 모든 프로세스를 대기 큐에서 한 번씩 처리해야 한다.
+
+- Space complexity: O(1)
+  추가적인 공간을 사용하지 않고 주어진 priorities 배열을 직접 조작한다. count와 location 변수만 사용하여 상태를 추적한다.
+
+# Code
+
+```js
+function solution(priorities, location) {
+  let count = 1;
+  while (priorities.length > 0) {
+    if (priorities[0] === Math.max(...priorities)) {
+      priorities.shift();
+      if (location === 0) {
+        return count;
+      } else {
+        count++;
+        location--;
+      }
+    } else {
+      const num = priorities.shift();
+      priorities.push(num);
+      if (location === 0) {
+        location = priorities.length - 1;
+      } else {
+        location--;
+      }
+    }
+  }
+  return count;
+}
+```
