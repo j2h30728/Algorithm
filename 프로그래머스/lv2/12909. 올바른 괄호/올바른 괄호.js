@@ -1,17 +1,8 @@
-function solution(s){
-    if(s.length % 2 ===1 ) return false;
-    const arr = [];
-    for(let i of s){
-        if(i ===")"){
-            if(arr[arr.length-1] === "("){
-                arr.pop();
-            }else{
-                return false;
-            }
-        }
-        if(i ==="("){
-            arr.push(i);
-        }
-    }
-    return !arr.length;
+function solution(s) {
+  let number = 0;
+  for (let i = 0; i < s.length; i++) {
+    s[i] === "(" ? number++ : number--;
+    if (number < 0) return false;
+  }
+  return number === 0 ? true : false;
 }

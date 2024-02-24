@@ -1,38 +1,29 @@
-# Intuition
+## Approach
 
-이 문제의 핵심 아이디어는 주식가격이 감소하는 첫 번째 순간을 찾는 것.
-가격이 감소하지 않고 유지되는 시간을 계산하기 위해, 현재 가격보다 낮은 가격이 나타나는 첫 시점을 찾는다.
-만약 모든 후속 가격이 현재 가격보다 높거나 같으면, 가격이 떨어지지 않은 기간은 현재 시점부터 배열의 끝까지다.
+1. **결과 배열 초기화**: 주식 가격의 길이와 동일한 길이를 가진 배열 `answer`를 생성하고, 모든 요소를 0으로 초기화합니다. 이 배열은 각 시점에서의 가격이 떨어지지 않은 시간을 저장하는 데 사용된다.
 
-# Approach
+2. **가격 비교**: 이중 for 루프를 사용하여 각 시점의 가격을 그 이후의 시점들의 가격과 비교한다. 외부 루프는 현재 시점의 가격을 나타내고, 내부 루프는 현재 시점 이후의 가격을 나타낸다.
 
-1. 반복 구조 사용: 이중 반복문을 사용하여 각 가격에 대해 그 가격이 떨어지지 않는 기간을 찾는다.
-2. 내부 반복문: 현재 가격에서 시작하여 가격이 떨어지는 첫 번째 시점을 찾는다. 가격이 떨어지거나 배열의 끝에 도달하면, 그 시점까지의 기간을 계산한다.
-3. 결과 기록: 각 가격에 대해 계산된 기간을 answer 배열에 추가한다.
+3. **시간 계산**: 현재 시점의 가격이 이후 시점의 가격보다 작거나 같으면, 가격이 떨어지지 않은 시간을 나타내는 `answer[i]` 값을 1 증가시킨다. 현재 시점의 가격이 이후 시점의 가격보다 클 경우, 가격이 떨어진 것이므로 내부 루프를 중단한다.
 
-# Complexity
+4. **결과 반환**: 모든 비교가 끝나면 `answer` 배열에 저장된 각 시점에서의 가격이 떨어지지 않은 시간을 반환한다.
 
-- Time complexity: O(n^2)
-  n은 prices 배열의 길이.
-  각 가격에 대해, 나머지 가격들과 비교하여 가격이 떨어지지 않는 기간을 찾기 때문에 최악의 경우 모든 가격 쌍에 대해 비교 연산을 수행해야 한다.
+## Complexity
 
-- Space complexity: O(n)
-  answer 배열을 저장하는 데 필요한 공간. 이 배열은 입력 배열 prices와 동일한 길이를 가짐.
+- **Time complexity**: $$O(n^2)$$ - `prices` 배열의 각 요소에 대해 나머지 요소와 비교하기 때문에, 시간 복잡도는 $$O(n^2)$$. 여기서 $$n$$은 `prices` 배열의 길이이다.
+- **Space complexity**: $$O(n)$$ - 길이 $$n$$의 `answer` 배열을 추가로 사용하기 때문에, 공간 복잡도는 $$O(n)$$.
 
-# Code
+## Code
 
-```js
+```javascript
 function solution(prices) {
-  const answer = [];
-  for (let i = 0; i < prices.length; i++) {
-    for (let j = i; j < prices.length; j++) {
-      // 가격이 떨어졌거나 배열의 끝에 도달한 경우
-      if (prices[i] > prices[j] || j === prices.length - 1) {
-        answer.push(j - i); // 떨어지지 않은 기간을 계산하여 추가
-        break; // 내부 반복문 종료
-      }
+  var answer = new Array(prices.length).fill(0);
+  for (let i = 0; i < prices.length - 1; i++) {
+    for (let j = i + 1; j < prices.length; j++) {
+      answer[i]++;
+      if (prices[i] > prices[j]) break;
     }
   }
-  return answer; // 계산된 기간을 담은 배열 반환
+  return answer;
 }
 ```
