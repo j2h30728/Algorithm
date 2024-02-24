@@ -1,28 +1,17 @@
 function solution(n, lost, reserve) {
-    let count = n - lost.length;
-    lost.sort();
-    lost = lost.filter(num => {
-        const sameValueIndex = reserve.indexOf(num);
-        if(sameValueIndex !== -1){
-            count++;
-            reserve.splice(sameValueIndex,1);
-            return false;
-        }
-        return true;
-    })
+    const realLost = lost.filter(x=> !reserve.includes(x)).sort((a,b)=>a-b);
+    const realReserve = reserve.filter(x=> !lost.includes(x)).sort((a,b)=>a-b);
     
+    let result = n - realLost.length;
     
-    lost.forEach(num => {
-        const downValueIndex = reserve.indexOf(num - 1);
-        const upValueIndex = reserve.indexOf(num + 1);
-
-        if(downValueIndex !== -1){
-            count++;
-            reserve.splice(downValueIndex,1);
-        }else if(upValueIndex !== -1){
-            count++;
-            reserve.splice(upValueIndex,1);
+    realLost.forEach((lostStudent)=>{
+        const index = realReserve.findIndex(x => Math.abs(x - lostStudent) === 1);
+        
+        if(index !== -1){
+            result++;
+            realReserve.splice(index,1);
         }
     })
-    return count;
+    
+    return result;
 }
