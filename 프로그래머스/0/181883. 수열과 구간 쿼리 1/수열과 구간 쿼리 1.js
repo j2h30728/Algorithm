@@ -1,9 +1,9 @@
 function solution(arr, queries) {
-    const result = arr.slice();
     queries.forEach(([a,b])=>{
-        for(let i = a; i <= b; i++){
-            result[i]++;
+        while(a <= b){
+            arr[a]++;
+            a++
         }
     })
-    return result;
+    return arr;
 }
