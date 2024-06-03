@@ -4,5 +4,5 @@ function solution(strArr) {
         const length = str.length;
         obj[length] = (obj[length] ?? 0) + 1;
     })
-    return Object.values(obj).sort((a,b)=>b-a).at(0);
+    return Math.max(...Object.values(obj));
 }
