@@ -5,13 +5,13 @@ function solution(arr) {
         if(stk.length === 0){
             stk.push(arr[i]);
             i++;
-        }
-        if(stk.length > 0 && stk.at(-1) < arr.at(i)){
-            stk.push(arr[i]);
-            i++;
-        }
-        if(stk.length > 0 && stk.at(-1) >= arr.at(i)){
-            stk.pop();
+        }else{
+            if(stk.at(-1) < arr.at(i)){
+                stk.push(arr[i]);
+                i++;
+            }else{
+                stk.pop();
+            }   
         }
     }
     return stk;
