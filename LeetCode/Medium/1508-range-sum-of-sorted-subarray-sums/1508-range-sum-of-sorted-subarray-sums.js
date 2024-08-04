@@ -6,13 +6,22 @@
  * @return {number}
  */
 var rangeSum = function (nums, n, left, right) {
-    const stack = [];
-    for (let i = 0; i < nums.length; i++) {
-        for (let j = i; j < nums.length; j++) {
-            const sum = nums.slice(i, j + 1).reduce((acc, cur) => acc + cur, 0)
-            stack.push(sum);
+    const MOD = 10 ** 9 + 7
+    const arr = [];
+    
+    for (let start = 0; start < nums.length; start++) {
+        let tempSum = 0;
+        for (let end = start; end < nums.length; end++) {
+            tempSum += nums[end];
+            arr.push(tempSum);
         }
     }
-    stack.sort((a, b) => a - b)
-    return stack.slice(left - 1, right).reduce((a, c) => a + c, 0) % (Math.pow(10, 9) + 7)
+    arr.sort((a, b) => a - b);
+    console.log(arr)
+    let result = 0;
+    for (let i = left - 1; i < right; i++) {
+        result += arr[i];
+        result %= MOD
+    }
+    return result;
 };
