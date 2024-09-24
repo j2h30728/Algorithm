@@ -6,7 +6,7 @@ function solution(N, stages) {
         }
     })
     const arr = [];
-    let people = Math.max(...success);
+    let people = stages.length;
     for(let i = 0; i < success.length - 1; i++){
         const failCount = success[i] - success[i + 1]
         arr.push(failCount / people);
