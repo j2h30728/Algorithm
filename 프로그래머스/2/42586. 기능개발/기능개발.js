@@ -1,17 +1,41 @@
 function solution(progresses, speeds) {
-    const days = progresses.map((progress,i)=> Math.ceil((100 - progress) / speeds[i]));
-    const result = [];    
-    let maxDay = days[0]
+    const queue = new Queue();
+    for(let i = 0; i < progresses.length; i++){
+        queue.push(Math.ceil((100 - progresses[i]) / speeds[i]));
+    }
+    const result = [];
+    let tempMax = queue.pop();
     let count = 1;
-    for(let i = 1; i < days.length; i++){
-        if(days[i] <= maxDay ){
-            count++;
-        }else{
-            maxDay = days[i];
+    while(queue.size() > 0) {
+        const poped = queue.pop()
+        if(tempMax < poped){
             result.push(count);
+            tempMax = poped
             count = 1;
+        }else{
+            count++;
         }
     }
     result.push(count);
     return result;
+}
+
+
+class Queue {
+    items = [];
+    front = 0;
+    rear = 0;
+    
+    push(item){
+        this.items.push(item);
+        this.rear++;
+    }
+    
+    pop(){
+        return this.items[this.front++];
+    }
+    
+    size (){
+        return this.rear - this.front;
+    }
 }
