@@ -1,22 +1,22 @@
 function solution(genres, plays) {
-    const songs = genres.reduce((obj,genre,index)=>{
-        if(!obj[genre]){
-            obj[genre] = {playCount :plays[index], list : []};
-        } else{
-            obj[genre].playCount += plays[index]; 
-        }
-        obj[genre].list.push([index, plays[index]]);
-        
-        return obj;
-    },{});
+    const result = [];
+    const genresObj = {};
+    const playObj = {};
     
-    const sorted = Object.values(songs).sort((a,b)=> b.playCount - a.playCount);
-    return sorted.reduce((arr,cur)=>{
-        cur.list.sort((a,b)=> b[1]-a[1]);
-        arr.push(cur.list[0][0]);
-        if(cur.list.length > 1){
-            arr.push(cur.list[1][0]);
+    genres.forEach((genre, i) => {
+        if(!(genre in genresObj)){
+            genresObj[genre] = [];
+            playObj[genre] = 0;
         }
-        return arr;
-    },[])
+        genresObj[genre].push([i, plays[i]])
+        playObj[genre] += plays[i]
+        
+    });
+    const sortedGenre = Object.keys(playObj).sort((a,b) => playObj[b] - playObj[a] );
+    for(const genre of sortedGenre){
+        const sortedSongs = genresObj[genre].sort((a, b) => b[1] - a[1]).slice(0,2).map(x => x[0])
+        result.push(...sortedSongs);
+    }
+    
+    return result;
 }
