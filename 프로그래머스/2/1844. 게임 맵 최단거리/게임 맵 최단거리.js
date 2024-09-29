@@ -1,24 +1,54 @@
+class Queue {
+    items = [];
+    front = 0;
+    rear = 0;
+    push(item){
+        this.items.push(item);
+        this.rear++;
+    }
+    pop(){
+        return this.items[this.front++]
+    }
+    isEmpty(){
+        return this.front === this.rear;
+    }
+}
+
 function solution(maps) {
-    const n = maps.length;
-    const m = maps[0].length;
-    const dx = [0, 1, 0, -1];
-    const dy = [1, 0, -1, 0];
-    const queue =[[0,0]];
+    const moves = [[-1, 0], [0, -1],[0 ,1],[1, 0]];
     
-    while(queue.length > 0){
-        const [x, y] = queue.shift();
+    const totalX = maps.length;
+    const totalY = maps[0].length;
+    
+    const dist = Array.from({length : totalX}, () => Array(totalY).fill(-1));
+    
+    const bfs = (start) =>{
+        const queue = new Queue();
+        queue.push(start);
+        const [curX , curY] = start;
+        dist[curX][curY] = 1;
         
-        for(let i = 0; i < 4; i++){
-            const nx = x + dx[i];
-            const ny = y + dy[i];
+        while(!queue.isEmpty()){
+            const here = queue.pop();
+            const [hereX, hereY] = here;
             
-            if(nx < 0 || ny < 0 || nx >= n || ny >= m || maps[nx][ny] === 0) continue;
-            
-            if(maps[nx][ny] === 1){
-                maps[nx][ny] = 1 + maps[x][y];
-                queue.push([nx,ny]);
+            for(const[moveX, moveY] of moves){
+                const newX = moveX + hereX;
+                const newY = moveY + hereY;
+                
+                if(newX < 0 || newY < 0 || newX >= totalX || newY >= totalY ){
+                    continue;
+                }
+                if(maps[newX][newY] === 0){
+                    continue;
+                }
+                if(dist[newX][newY] === -1){
+                    queue.push([newX,newY]);
+                    dist[newX][newY] = dist[hereX][hereY] + 1;
+                }
             }
         }
     }
-    return maps[n - 1][m - 1] > 1 ? maps[n - 1][m - 1] : -1;
+    bfs([0,0]);
+    return dist[totalX - 1][totalY - 1];
 }
