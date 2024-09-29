@@ -1,21 +1,20 @@
 function solution(n, computers) {
-    const visited = new Array(n).fill(false);
-    let network = 0;
-    
-    
-    function dfs(start){
-        visited[start] = true;
-        for(let i = 0; i < n; i++){
-            if(!visited[i] && computers[start][i]){
-                dfs(i);
-            }
+    const isVisited = Array.from({length : n} , () => false);
+    let count = 0;
+    for(let i = 0 ; i < n; i++){
+        if(!isVisited[i]){
+            dfs(computers, isVisited, i);
+            count++;
         }
     }
-    for(let i = 0; i < n; i++){        
-        if(!visited[i]){
-            dfs(i);
-            network++;
+    return count;
+}
+
+function dfs (computers, isVisited, node) {
+    isVisited[node] = true;
+    for(let idx = 0; idx < computers[node].length; idx++){
+        if(computers[node][idx] && !isVisited[idx]){
+            dfs(computers, isVisited, idx)
         }
     }
-    return network;
 }
