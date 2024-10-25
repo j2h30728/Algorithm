@@ -1,12 +1,12 @@
 function solution(left, right) {
-    let arr = [];
+    let sum = 0;
     for(let i = left; i <= right; i++){
         let count = 0;
         if(Number.isInteger(Math.sqrt(i))){
-            arr.push(-i)
+            sum -= i;
         }else{
-            arr.push(i);
+            sum += i;
         }
     }
-    return arr.reduce((acc, cur) => acc + cur, 0)
+    return sum;
 }
