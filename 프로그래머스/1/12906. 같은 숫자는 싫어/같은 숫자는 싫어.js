@@ -1,3 +1,11 @@
 function solution(arr) {
-    return arr.filter((x,i)=> (x !== arr[i + 1]) ? true : false);
+    const result = [];
+    let prev;
+    for(const num of arr) {
+        if(prev !== num){
+            result.push(num);
+        } 
+        prev = num;
+    }
+    return result;
 }
