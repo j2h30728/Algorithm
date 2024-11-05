@@ -1,5 +1,10 @@
 function solution(sizes) {
-    const maxWidth =sizes.map(x=> Math.max(...x));
-    const maxHeight =sizes.map(x=> Math.min(...x));
-    return Math.max(...maxWidth) * Math.max(...maxHeight);
+    let width = 0;
+    let height = 0;
+    sizes.forEach(size => {
+        const [min , max] = size.sort((a,b) => a - b);
+        width = width < min ? min : width;
+        height = height < max ? max : height;
+    })
+    return width * height;
 }
