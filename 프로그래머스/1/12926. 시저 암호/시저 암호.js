@@ -1,8 +1,6 @@
 function solution(s, n) {
     const a = 'a'.charCodeAt(0);
-    const z = 'z'.charCodeAt(0);
     const A = 'A'.charCodeAt(0);
-    const Z = 'Z'.charCodeAt(0);
     let result = '';
     for(const char of s) {
         if(char === ' '){
