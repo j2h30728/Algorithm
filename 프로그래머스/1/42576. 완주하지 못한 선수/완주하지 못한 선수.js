@@ -1,11 +1,8 @@
 function solution(participant, completion) {
     const map = new Map();
-    completion.forEach(x => map.set(x, (map.get(x) || 0) + 1));
-    for(const name of participant){
-        if(!map.get(name)){
-            return name;
-        }else{
-            map.set(name, map.get(name) - 1);
-        }
-    }
+    
+    participant.forEach((name) => map.set(name, (map.get(name) || 0) + 1));
+    completion.forEach((name) => map.set(name, (map.get(name) - 1)));
+    
+    return [...map].filter((person) => person[1] > 0).flat().at(0);
 }
