@@ -1,14 +1,13 @@
 function solution(cards1, cards2, goal) {
-    let num1 = 0;
-    let num2 = 0;
-    for(const str of goal){
-        if(cards1[num1] === str){
-            num1++;
-        }else if(cards2[num2] === str){
-            num2++;
-        } else{
-            return "No";
-        }
+    for(const string of goal){
+        if(cards1[0] === string){
+           cards1.shift();
+       }else if(cards2[0] === string){
+           cards2.shift();
+       }else{
+           return 'No'
+       }
     }
-    return "Yes";
+    
+    return 'Yes';
 }
