@@ -1,22 +1,18 @@
 function solution(id_list, report, k) {
-    const users = {};
-    const reportUsers = {};
-
-    id_list.forEach(id => {
-        users[id] = 0;
-        reportUsers[id] = new Set()
-    });
+    const map = new Map();
+    const ids = new Map();
     
-    report.forEach(x => {
-        const [reporting, reported] = x.split(' ');
-        reportUsers[reported].add(reporting);
+    id_list.forEach(id => ids.set(id, (ids.get(id) || 0)));
+    
+    report.forEach((p)=>{
+        const [report, reported] = p.split(' ');
+        
+        map.set(reported, (map.get(reported) || new Set()).add(report) );
     })
     
-
-    for(let key in reportUsers){
-        if(reportUsers[key].size >= k){
-            [...reportUsers[key]].forEach(id => users[id] += 1);
-        }
-    }
-    return id_list.map(id => users[id])
+    Array.from(map).filter((report) => report[1].size >= k).forEach((report) => {
+        Array.from(report[1]).forEach(name => ids.set(name, (ids.get(name) + 1)))
+    })
+    
+    return id_list.map(id => ids.get(id));
 }
