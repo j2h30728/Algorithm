@@ -1,17 +1,18 @@
 function solution(N, stages) {
-    const success = new Array(N + 1).fill(0);
-    stages.forEach((stage) => {
-        for(let i = 0; i < stage; i++){
-            success[i] += 1;
-        }
-    })
-    const arr = [];
     let people = stages.length;
-    for(let i = 0; i < success.length - 1; i++){
-        const failCount = success[i] - success[i + 1]
-        arr.push(failCount / people);
-        people -= failCount;
-    }
-    const result = Object.entries(arr).sort((a,b)=> b[1] - a[1]).map(x => +x[0] + 1);
-    return result;
+    const numbers = new Array(N + 1).fill(0);
+
+    stages.forEach(stage => {
+        numbers[stage] += 1;
+    })
+    
+    const result = [0];
+    
+    numbers.slice(1).forEach(num => {
+        result.push(num / people);
+        people -= num;
+    })
+    
+    return result.map((num,i) => ([i,num])).slice(1).sort((a, b) => b[1] - a[1]).flatMap(num => num[0]).filter(num => num <= N)
+    
 }
