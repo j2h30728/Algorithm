@@ -1,20 +1,29 @@
 function solution(answers) {
-    const paterns = [[1, 2, 3, 4, 5], [2, 1, 2, 3, 2, 4, 2, 5], [3, 3, 1, 1, 2, 2, 4, 4, 5, 5]];
+    const first = [1, 2, 3, 4, 5];
+    const second = [2, 1, 2, 3, 2, 4, 2, 5];
+    const third = [3, 3, 1, 1, 2, 2, 4, 4, 5, 5];
+       
+    const count = [0, 0, 0, 0]
+
     
-    const scores = [0, 0, 0];
-    answers.map((answer, i)=>{
-        paterns.map((patern, j)=>{
-            if(answer === patern[i % patern.length]){
-                scores[j] += 1;
-            }
-        })
-    })
-    const max = Math.max(...scores);
-    const result = [];
-    for(let i = 0; i < scores.length; i++){
-        if(max === scores[i]){
-            result.push(i + 1);
+    answers.forEach((answer, i) => {
+        if(first[i % first.length] === answer){
+            count[1] += 1;
         }
-    }
+        if(second[i % second.length] === answer){
+            count[2] += 1;
+        }
+        if(third[i % third.length] === answer){
+            count[3] += 1;
+        }
+    })
+    const max = Math.max(...count);
+    const result = [];
+    count.forEach((num, i) => {
+        if(num === max){
+            result.push(i);
+        }
+    })
+    
     return result;
 }
