@@ -1,27 +1,28 @@
 function solution(board, moves) {
-    const lanes = [...Array(board[0].length)].map(() => []);
+    const stack = [];
+    let count = 0;
     
-    for(let i = board.length - 1; i >= 0; i--){
-        for(let j = 0; j < board[0].length; j++){
-            if(board[i][j]){
-                lanes[j].push(board[i][j]);
+    const calculate = (num) => {
+        for(let i = 0; i < board.length; i++){
+            if(board[i][num] !== 0){
+                const catched = board[i][num];
+                board[i][num] = 0;
+                
+                if(stack.at(-1) === catched) {
+                    count += 2;
+                    stack.pop();
+                }else{
+                    stack.push(catched);
+                }
+                break;
             }
         }
     }
-    const stack = [];
-    let count = 0;
-    for(const move of moves){
-        if(lanes[move - 1].length > 0){
-            const poped = lanes[move - 1].pop();
-
-            if(stack.length > 0 && stack.at(-1) === poped) {
-                stack.pop();
-                count += 2;
-            }else {
-                stack.push(poped);
-            }
-        }     
-    }
+    
+    moves.forEach(move => {
+        calculate(move - 1);
+    });
     
     return count;
+    
 }
