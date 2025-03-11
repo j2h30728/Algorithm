@@ -1,15 +1,11 @@
 function solution(n, words) {
-    const useWords = new Set();
-    let preWord = words[0][0];
+    const arr = [words[0]];
     
-    for(let i = 0; i < words.length; i++){
-        let word = words[i];
-        
-        if(useWords.has(word) || word[0] !== preWord){
-            return [i % n + 1, Math.floor(i / n) + 1];
+    for(const word of words.slice(1)) {
+        if(arr.includes(word) ||  arr.at(-1).at(-1) !== word.at(0) ){
+           return [ arr.length % n + 1 , Math.floor(arr.length / n) + 1 ];
         }
-        useWords.add(word);
-        preWord = word.slice(-1);
+        arr.push(word);
     }
-    return [0, 0]
+    return [0, 0];
 }
