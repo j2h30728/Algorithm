@@ -1,4 +1,7 @@
 function solution(numbers) {
-    const result = numbers.map(x=>String(x)).sort((a,b)=> (b+a) * 1 - (a+b) * 1 ).join('');
-    return result[0]  == 0 ? '0' :  result;
+    const strings = numbers.map(String).sort((a, b) => a + b > b + a ? -1 : a + b === b + a ? 0 : 1);
+    
+    if(strings[0] === '0') return '0';
+    
+    return strings.join('');
 }
