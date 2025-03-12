@@ -1,8 +1,3 @@
 function solution(n) {
-    const arr = [];
-    while(n > 0){
-        arr.push(n % 10);
-        n = Math.floor(n / 10);
-    }
-    return arr.sort((a, b) => b - a).join('') * 1;
+   return parseInt(String(n).split('').sort((a, b) => b - a).join(''));
 }
