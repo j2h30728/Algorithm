@@ -1,15 +1,14 @@
 function solution(d, budget) {
-    const arr = d.sort((a, b) => a - b);
-    let sum = 0;
-
-    for(let i = 0; i < arr.length; i++){
-        sum += arr[i];
-        if(sum === budget) {
-            return i + 1;
-        }
-        if(sum > budget) {
-            return i;
-        }
+    let count = 0;
+    let temp = 0;
+    
+    for(const x of d.sort((a,b) => a-b)){
+     if(x + temp > budget){
+            return count;
+        } else{
+            count++;
+            temp += x;
+        }   
     }
-    return arr.length;
+    return count;
 }
