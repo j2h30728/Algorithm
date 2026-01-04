@@ -3,17 +3,12 @@
  * @param {string} str2
  * @return {string}
  */
-const gcd = (x, y) => {
-    if (y === 0) {
-        return x
-    } else {
-        return gcd(y, x % y);
-    }
-}
-var gcdOfStrings = function (str1, str2) {
-    if (str1 + str2 !== str2 + str1) return '';
-
-    const length = gcd(str1.length, str2.length);
-    console.log(length)
-    return str1.substring(0, length);
+var gcdOfStrings = function(str1, str2) {
+    if(str1 + str2 !== str2 + str1) return '';
+    
+    const temp =  getGcd(str1.length , str2.length);
+    return str1.slice(0,temp);
 };
+function getGcd (a, b){
+    return b === 0 ? a : getGcd(b, a % b);
+}
