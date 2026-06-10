@@ -6,22 +6,27 @@ let a = input[1].split(" ").map(Number);
 let b = input[2].split(" ").map(Number);
 
 // Please Write your code here.
-let index = a.indexOf(b[0]);
-let arr = a.slice(index);
+function isSame(a, b, startIndex) {
+    for(let i = 0; i < b.length; i++){
+        if(a[startIndex + i] !== b[i]){
+            return false;
+        }
+    }
+    return true;
+}
 
-while(true){
-    if(arr.indexOf(b[0]) === -1){
-        console.log('No');
-        return;
-    }
-    for(let i = 0; i < n2; i++){
-        if(arr[i] !== b[i]){
-            arr = arr.slice(i);
-            break;
-        }
-        if(i === n2 - 1){
-            console.log('Yes');
-            return;
+function isSubsequence () {
+    for(let i = 0; i < n1 - n2 + 1; i++){
+        if(isSame(a, b, i)){
+            return true;
         }
     }
+    return false;
+}
+
+
+if(isSubsequence()){
+    console.log('Yes');
+}else{
+    console.log('No');
 }
